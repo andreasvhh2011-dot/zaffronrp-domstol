@@ -70,3 +70,4 @@ async function api(req,res){
 }
 const server=http.createServer(async(req,res)=>{try{if(req.url.startsWith('/api/'))return await api(req,res);let p=new URL(req.url,'http://x').pathname;if(p==='/')p='/index.html';let file=path.normalize(path.join(PUB,p));if(!file.startsWith(PUB))return json(res,403,{error:'Forbidden'});if(!fs.existsSync(file)||fs.statSync(file).isDirectory())return json(res,404,{error:'Not found'});res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'text/plain'});fs.createReadStream(file).pipe(res)}catch(e){console.error(e);json(res,500,{error:'Serverfejl'})}});
 server.listen(PORT,()=>console.log(`ZaffronRP Domstol kører på port ${PORT}`));
+
